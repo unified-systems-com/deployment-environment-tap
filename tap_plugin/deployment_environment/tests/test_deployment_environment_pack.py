@@ -53,3 +53,10 @@ def test_reimport_is_idempotent(seeded) -> None:
 
     assert grift_import(json.loads(BUNDLE.read_text(encoding="utf-8"))).success
     assert Dimension.objects.filter(name__startswith=FAMILY).count() == 3
+
+
+def test_documented_queries_bracket_the_key(seeded) -> None:
+    """req-deployment-environment-keying-3: the dotted path reads as nested keys and silently matches
+    nothing, so no description may teach it."""
+    for name, row in seeded.items():
+        assert "n.dimensions.deployment" not in row.description.replace("n.dimensions.deployment...", ""), name

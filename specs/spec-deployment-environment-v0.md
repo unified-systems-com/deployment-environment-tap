@@ -79,7 +79,7 @@ observed in) that environment.
 
 Consumers stamp the key in the entity's `dimensions` map (a GRIFT bundle's `entity.dimensions`, or a model's
 `DEFAULT_DIMENSIONS` when every row of a type belongs to one environment). Read a side of the grid by key
-presence: `MATCH (n) WHERE n.dimensions.deployment.environment.production IS NOT NULL RETURN n`.
+presence, with the key in brackets because its dots are part of the key: `MATCH (n) WHERE n.dimensions["deployment.environment.production"] IS NOT NULL RETURN n`. The unbracketed path `n.dimensions.deployment.environment.production` is read as nested keys and silently matches nothing (observed 2026-09-22: `n.dimensions.tap.cloud IS NOT NULL` returned 0 accounts, `n.dimensions["tap.cloud"] IS NOT NULL` returned 1).
 
 #### Acceptance Criteria
 
@@ -87,6 +87,7 @@ presence: `MATCH (n) WHERE n.dimensions.deployment.environment.production IS NOT
 | --- | --- | :---: | --- | --- |
 | req-deployment-environment-keying-1 | Rule Stated On Every Node | Implemented | Every pack node's description states the key-per-environment rule and the `member` value. | |
 | req-deployment-environment-keying-2 | Family Is Not A Key | Implemented | The family node states entities never carry the bare family name as a key. | |
+| req-deployment-environment-keying-3 | Query Form Is Bracketed | Implemented | Every documented query addresses the key as `n.dimensions["deployment.environment.<name>"]`, never the dotted path. | |
 
 ---
 

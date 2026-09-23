@@ -6,14 +6,14 @@
   "batches": [
     {
       "batch_entity": {
-        "entity_id": "01a0cbd5-8a3d-747d-befd-baca16406fd6",
+        "entity_id": "01a0cc66-df39-73ef-a2dd-66d9cea45e90",
         "entity_type": "batch",
-        "name": "deployment environment Dimension Pack v0.1.0",
+        "name": "deployment environment Dimension Pack v0.1.1",
         "dimensions": {}
       },
       "batch_node": {
         "source": "tap_plugin.deployment_environment.grift.dimensions",
-        "name": "deployment environment Dimension Pack v0.1.0",
+        "name": "deployment environment Dimension Pack v0.1.1",
         "description": "The deployment-environment dimension pack (req-deployment-environment-pack): the family node and the two seeded environment keys, staging and production. Other environments (customer sandboxes) mint their own `deployment.environment.<name>` key on first use; no edges."
       },
       "nodes": [
@@ -28,7 +28,7 @@
           },
           "node": {
             "name": "deployment.environment",
-            "description": "The deployment-environment family. Environment membership is carried one key per environment: `deployment.environment.<name>`, valued `member`. A node or edge that belongs to an environment carries that environment's key; a node shared across environments (an identity provider, a code host) carries every key it serves \u2014 never a single key with a list, and never an unwritten 'no key means all environments' rule. Absence of a key means the node is not placed in that environment (or not observed there), nothing more. The value is always `member` in v0; the key's presence is the fact. Name aligns with OpenTelemetry's `deployment.environment.name` attribute: an OTel value `staging` maps one-to-one to the key `deployment.environment.staging`. Query a side of the grid by key presence, e.g. `MATCH (n) WHERE n.dimensions.deployment.environment.production IS NOT NULL RETURN n`. This node is the dictionary entry for the scheme; entities never carry this bare name as a key."
+            "description": "The deployment-environment family. Environment membership is carried one key per environment: `deployment.environment.<name>`, valued `member`. A node or edge that belongs to an environment carries that environment's key; a node shared across environments (an identity provider, a code host) carries every key it serves \u2014 never a single key with a list, and never an unwritten 'no key means all environments' rule. Absence of a key means the node is not placed in that environment (or not observed there), nothing more. The value is always `member` in v0; the key's presence is the fact. Name aligns with OpenTelemetry's `deployment.environment.name` attribute: an OTel value `staging` maps one-to-one to the key `deployment.environment.staging`. Query a side of the grid by key presence, e.g. `MATCH (n) WHERE n.dimensions[\"deployment.environment.production\"] IS NOT NULL RETURN n` (bracket the key: its dots are part of the key, and the dotted path n.dimensions.deployment... silently matches nothing). This node is the dictionary entry for the scheme; entities never carry this bare name as a key."
           }
         },
         {
