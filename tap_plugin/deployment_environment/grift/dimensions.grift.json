@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "grift_version": "0"
+  },
+  "_reserved": {},
+  "batches": [
+    {
+      "batch_entity": {
+        "entity_id": "01a0cbd5-8a3d-747d-befd-baca16406fd6",
+        "entity_type": "batch",
+        "name": "deployment environment Dimension Pack v0.1.0",
+        "dimensions": {}
+      },
+      "batch_node": {
+        "source": "tap_plugin.deployment_environment.grift.dimensions",
+        "name": "deployment environment Dimension Pack v0.1.0",
+        "description": "The deployment-environment dimension pack (req-deployment-environment-pack): the family node and the two seeded environment keys, staging and production. Other environments (customer sandboxes) mint their own `deployment.environment.<name>` key on first use; no edges."
+      },
+      "nodes": [
+        {
+          "entity": {
+            "entity_id": "01a0cbd5-8a3d-747d-befd-bacb5522b6c5",
+            "entity_type": "dimension",
+            "name": "deployment.environment",
+            "dimensions": {
+              "tap.meta": "dimension"
+            }
+          },
+          "node": {
+            "name": "deployment.environment",
+            "description": "The deployment-environment family. Environment membership is carried one key per environment: `deployment.environment.<name>`, valued `member`. A node or edge that belongs to an environment carries that environment's key; a node shared across environments (an identity provider, a code host) carries every key it serves \u2014 never a single key with a list, and never an unwritten 'no key means all environments' rule. Absence of a key means the node is not placed in that environment (or not observed there), nothing more. The value is always `member` in v0; the key's presence is the fact. Name aligns with OpenTelemetry's `deployment.environment.name` attribute: an OTel value `staging` maps one-to-one to the key `deployment.environment.staging`. Query a side of the grid by key presence, e.g. `MATCH (n) WHERE n.dimensions.deployment.environment.production IS NOT NULL RETURN n`. This node is the dictionary entry for the scheme; entities never carry this bare name as a key."
+          }
+        },
+        {
+          "entity": {
+            "entity_id": "01a0cbd5-8a3d-747d-befd-bacc045e11d3",
+            "entity_type": "dimension",
+            "name": "deployment.environment.staging",
+            "dimensions": {
+              "tap.meta": "dimension"
+            }
+          },
+          "node": {
+            "name": "deployment.environment.staging",
+            "description": "Membership in the `staging` environment: the pre-production copy of a system, where changes are exercised before production. Value `member`. Environment membership is carried one key per environment: `deployment.environment.<name>`, valued `member`."
+          }
+        },
+        {
+          "entity": {
+            "entity_id": "01a0cbd5-8a3d-747d-befd-bacd9019ad6a",
+            "entity_type": "dimension",
+            "name": "deployment.environment.production",
+            "dimensions": {
+              "tap.meta": "dimension"
+            }
+          },
+          "node": {
+            "name": "deployment.environment.production",
+            "description": "Membership in the `production` environment: the copy of a system that serves real users and data. Value `member`. Environment membership is carried one key per environment: `deployment.environment.<name>`, valued `member`."
+          }
+        }
+      ],
+      "edges": []
+    }
+  ]
+}

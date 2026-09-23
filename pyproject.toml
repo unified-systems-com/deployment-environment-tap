@@ -1,0 +1,31 @@
+# Identity chain (pre-boot conformance gate enforces agreement):
+#   slug = "deployment_environment"  ·  distribution = "deployment-environment-tap"  ·  import namespace = "tap_plugin.deployment_environment"
+#   entry-point key = "deployment_environment"
+[project]
+name = "deployment-environment-tap"
+description = "TAP deployment environment: staging / production / sandbox membership as a dimension pack, one key per environment."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.14"
+dynamic = ["version"]
+dependencies = []
+
+[project.entry-points."tap.plugins"]
+deployment_environment = "tap_plugin.deployment_environment.apps:DeploymentEnvironmentConfig"
+
+# The plugin's OWN dev closure (PEP 735), so its suite runs in a bare checkout. Never installed by boot.
+[dependency-groups]
+dev = ["pytest>=8.3", "pytest-django>=4.9", "factory-boy>=3.3"]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+fallback_version = "0.0.0"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["tap_plugin/deployment_environment"]

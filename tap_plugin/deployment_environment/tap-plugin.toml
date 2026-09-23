@@ -1,0 +1,22 @@
+manifest_version = "0"
+plugin_version = "0.1.0"
+requires_tap = ">=0.2.1"
+slug = "deployment_environment"
+name = "TAP Deployment Environment"
+description = "Environment membership as a dimension pack: one key per environment (deployment.environment.<name>, valued member), so a node shared across environments carries every key it serves. Vocabulary substrate — no models, no edges, no pages, no collector, no credential, no network."
+
+# No depends_on: core's `dimension` model is the only type this plugin writes.
+
+# Pure vocabulary — no code beyond an AppConfig, no dependencies, no crypto.
+[fips]
+status = "compatible"
+
+# The dimension pack (req-deployment-environment-pack).
+[grift]
+dimensions = "grift/dimensions.grift.json"
+
+# In-package boot record (req-boot-bootstrap-records-in-package). Digest: scripts/boot-record-hash --refresh.
+[[boot.records]]
+name = "ci"
+description = "RESERVED NAME (req-boot-bootstrap-ci-record): the stack this plugin's own tests run in — depends_on closure (empty) + self, offline, credential-free, seeding the pack. The consumer flips self to editable."
+sha256 = "e48d9e7b1d3abb0c71d1ea5cab9275bcf0e5287aed6ea9829d97f32642a33fc0"

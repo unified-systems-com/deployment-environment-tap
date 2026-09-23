@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "description": "deployment_environment CI record (req-boot-bootstrap-ci-record): installs this plugin alone (no dependencies; core's dimension model is the only type it writes) and seeds its pack, proving the bundle imports against a real grid. Offline, credential-free; the consumer flips self to editable.",
+  "install": {
+    "plugins": [
+      {
+        "slug": "deployment_environment",
+        "enabled": true,
+        "source": {
+          "type": "git",
+          "url": "https://github.com/unified-systems-com/deployment-environment-tap",
+          "rev": "ec03a58de8957f0d6a367f73b27f9088b10d7578"
+        },
+        "note": "Self, pinned at the bootstrap commit until the first tagged release; the consumer (plugin-ci, or `spawn --dev-plugins deployment_environment`) substitutes the checkout under test via tap.dev_workspace (req-boot-bootstrap-ci-record-4)."
+      }
+    ]
+  },
+  "population": {
+    "on_failure": "abort",
+    "steps": [
+      {
+        "type": "seed-plugin",
+        "plugin": "deployment_environment",
+        "enabled": true,
+        "note": "Own GRIFT: the dimension pack is the whole of what this plugin ships."
+      }
+    ]
+  }
+}
