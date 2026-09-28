@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "python",
+  "include-component-in-tag": false,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "packages": {
+    ".": {
+      "package-name": "deployment-environment-tap",
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "tap_plugin/deployment_environment/tap-plugin.toml"
+        },
+        {
+          "type": "json",
+          "path": "tap_plugin/deployment_environment/boot/ci.boot.json",
+          "jsonpath": "$.install.plugins[?(@.slug=='deployment_environment')].source.rev"
+        }
+      ],
+      "initial-version": "0.1.0"
+    }
+  }
+}
