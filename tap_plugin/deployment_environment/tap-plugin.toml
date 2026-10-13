@@ -1,6 +1,6 @@
 manifest_version = "0"
 plugin_version = "0.1.0" # x-release-please-version
-requires_tap = ">=0.2.1"
+requires_tap = ">=0.3.0"
 slug = "deployment_environment"
 name = "TAP Deployment Environment"
 description = "Environment membership as a dimension pack: one key per environment (deployment.environment.<name>, valued member), so a node shared across environments carries every key it serves. Vocabulary substrate — no models, no edges, no pages, no collector, no credential, no network."
