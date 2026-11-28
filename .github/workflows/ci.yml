@@ -22,6 +22,6 @@ jobs:
       contents: read
       security-events: write
     # Pinned to unified-systems-com/tap main at da212f5c0cf73d50d644f1c608e14b47515ccee8 (2026-10-13).
-    uses: unified-systems-com/tap/.github/workflows/plugin-ci.yml@86f9d918ad5ac2cce52225d3c5a4dd0596aab68e
+    uses: unified-systems-com/tap/.github/workflows/plugin-ci.yml@e4d2e5c144d629ba2a07bff0a2dde390ed132a01
     with:
       plugin_slug: deployment_environment
